@@ -1,6 +1,8 @@
 #include "TitleScene.h"
 #include "GameScene.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
+#include "AudioEngine.h"
 
 USING_NS_CC;
 
@@ -28,15 +30,54 @@ bool TitleScene::init()
 	//background->setColor(Color3B(125, 125, 125));
 	this->addChild(background);
 
-	ui::Button *clickButton = ui::Button::create("./Images/dummy_click.png");
-	clickButton->setPosition(Vec2(visibleSize.width / 2.0f, 80.0f));
-	clickButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
-	this->addChild(clickButton);
+	ui::Button *startButton = ui::Button::create("./Images/dummy_start.png");
+	startButton->setPosition(Vec2(visibleSize.width / 2.0f, 240.0f));
+	startButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
+	startButton->setTag(0);
+	this->addChild(startButton);
 
+	ui::Button *loadButton = ui::Button::create("./Images/dummy_load.png");
+	loadButton->setPosition(Vec2(visibleSize.width / 2.0f, 160.0f));
+	loadButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
+	loadButton->setTag(1);
+	this->addChild(loadButton);
+
+	if (!UserDefault::getInstance()->getBoolForKey("save"))
+		loadButton->setEnabled(false);
+
+	ui::Button *exitButton = ui::Button::create("./Images/dummy_exit.png");
+	exitButton->setPosition(Vec2(visibleSize.width / 2.0f, 80.0f));
+	exitButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
+	exitButton->setTag(2);
+	this->addChild(exitButton);
+
+	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("abc.mp3");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(0.5);
+	//CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.5);
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("background.ogg");
 	return true;
 }
 
 void TitleScene::clickEvent(Ref *pSender)
 {
-	Director::getInstance()->replaceScene(CCTransitionFade::create(3.0f, GameScene::createScene()));
+	ui::Button *button = (ui::Button*)pSender;
+	int tag = button->getTag();
+
+	switch (tag)
+	{
+	case 0:
+		UserDefault::getInstance()->setBoolForKey("save", false);
+		UserDefault::getInstance()->setIntegerForKey("child_happiness", 5);
+		UserDefault::getInstance()->setIntegerForKey("mother_happiness", 5);
+
+		Director::getInstance()->replaceScene(CCTransitionFade::create(3.0f, GameScene::createScene()));
+		break;
+
+	case 1:
+		Director::getInstance()->replaceScene(CCTransitionFade::create(3.0f, GameScene::createScene()));
+		break;
+
+	case 2:
+		break;
+	}
 }

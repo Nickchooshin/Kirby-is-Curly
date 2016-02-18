@@ -24,10 +24,12 @@ public:
 
 	bool LoadScript(std::string filePath);
 
-	void Next();
-
 	bool IsEnd() const;
 private:
+	void Next();
+	void Prev();
+
+	void DialogClick(cocos2d::Ref *pSender);
 };
 
 #endif

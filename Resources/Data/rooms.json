@@ -1,0 +1,9 @@
+[
+    { "Room" : "Attic", "Actions" : [ 1, 2 ] },
+    { "Room" : "Kid Room", "Actions" : [ 3, 4, 5 ] },
+    { "Room" : "Bathroom", "Actions" : [ 6, 7 ] },
+    { "Room" : "Parent's Room", "Actions" : [ 8, 9 ] },
+    { "Room" : "Living Room", "Actions" : [ 10, 11 ] },
+    { "Room" : "Kitchen", "Actions" : [ 12, 13, 14 ] },
+    { "Room" : "Garden", "Actions" : [ 15, 16, 17 ] }
+]

@@ -1,0 +1,87 @@
+[
+    {
+        "Action" : "Helping with laundry",
+        "Child" : -2,
+        "Mother" : 3
+    },
+    {
+        "Action" : "Look through old boxes for memories (if mom is present)",
+        "Child" : 1,
+        "Mother" : 1
+    },
+    {
+        "Action" : "Play games",
+        "Child" : 3,
+        "Mother" : -2
+    },
+    {
+        "Action" : "Read Books",
+        "Child" : 2,
+        "Mother" : 0
+    },
+    {
+        "Action" : "Talk to mom",
+        "Child" : 1,
+        "Mother" : 1
+    },
+    {
+        "Action" : "Take a bath",
+        "Child" : 1,
+        "Mother" : 1
+    },
+    {
+        "Action" : "Help cleaning (if mom is present)",
+        "Child" : -2,
+        "Mother" : 3
+    },
+    {
+        "Action" : "Look at picture of dad",
+        "Child" : 1,
+        "Mother" : 1
+    },
+    {
+        "Action" : "Comfort and talk to mom (mom has to be present)",
+        "Child" : 1,
+        "Mother" : 1
+    },
+    {
+        "Action" : "Watch movie with mom (if mom is present)",
+        "Child" : 2,
+        "Mother" : 1
+    },
+    {
+        "Action" : "play games",
+        "Child" : 3,
+        "Mother" : -2
+    },
+    {
+        "Action" : "Help with cooking (if mom is present)",
+        "Child" : 0,
+        "Mother" : 3
+    },
+    {
+        "Action" : "Snack",
+        "Child" : 2,
+        "Mother" : 0
+    },
+    {
+        "Action" : "Clean Kitchen",
+        "Child" : -2,
+        "Mother" : 3
+    },
+    {
+        "Action" : "Play with friends (if friends are present???)",
+        "Child" : 4,
+        "Mother" : -1
+    },
+    {
+        "Action" : "Help in garden (if mom is present)",
+        "Child" : -1,
+        "Mother" : 3
+    },
+    {
+        "Action" : "Play basketball or some other sport",
+        "Child" : 2,
+        "Mother" : 0
+    }
+]

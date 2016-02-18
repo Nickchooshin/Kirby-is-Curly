@@ -1,15 +1,7 @@
 #include "Dialog.h"
 #include "ui/CocosGUI.h"
 #include "json/document.h"
-#include "json/reader.h"
 #include "json/filereadstream.h"
-/*
-#include "../rapidjson/include/rapidjson/document.h"
-#include "../rapidjson/include/rapidjson/prettywriter.h"
-#include "../rapidjson/include/rapidjson/stringbuffer.h"
-#include "../rapidjson/include/rapidjson/filereadstream.h"
-#include "../rapidjson/include/rapidjson/filewritestream.h"
-*/
 
 USING_NS_CC;
 
@@ -33,10 +25,14 @@ bool Dialog::init()
 	frame->setPosition(Vec2(visibleSize.width / 2.0f, frame->getContentSize().height / 2.0f));
 	this->addChild(frame);
 
-	m_label = Label::create("dsdsfsfsf", "fonts/arial.ttf", 30.0f, frame->getContentSize());
+	m_label = Label::create("", "fonts/arial.ttf", 30.0f, frame->getContentSize());
 	m_label->setColor(Color3B(0, 0, 0));
 	m_label->setPosition(frame->getPosition());
 	this->addChild(m_label);
+
+	EventListenerMouse *eventListenerMouse = EventListenerMouse::create();
+	eventListenerMouse->onMouseDown = CC_CALLBACK_1(Dialog::DialogClick, this);
+	frame->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListenerMouse, this);
 
 	return true;
 }
@@ -57,22 +53,49 @@ bool Dialog::LoadScript(std::string filePath)
 	m_index = 0;
 	m_maxIndex = m_document.Size();
 
-	Next();
+	m_label->setString(m_document[m_index]["dialog"].GetString());
 
 	return true;
-}
-
-void Dialog::Next()
-{
-	if (m_index < m_maxIndex)
-	{
-		m_label->setString(m_document[m_index]["dialog"].GetString());
-
-		++m_index;
-	}
 }
 
 bool Dialog::IsEnd() const
 {
 	return m_index == m_maxIndex;
+}
+
+void Dialog::Next()
+{
+	if (m_index < m_maxIndex - 1)
+	{
+		++m_index;
+
+		m_label->setString(m_document[m_index]["dialog"].GetString());
+	}
+}
+
+void Dialog::Prev()
+{
+	if (m_index > 0)
+	{
+		--m_index;
+
+		m_label->setString(m_document[m_index]["dialog"].GetString());
+	}
+}
+
+void Dialog::DialogClick(cocos2d::Ref *pSender)
+{
+	EventMouse *event = (EventMouse*)pSender;
+	int mouseButton = event->getMouseButton();
+
+	switch (mouseButton)
+	{
+	case 0:
+		Next();
+		break;
+
+	case 1:
+		Prev();
+		break;
+	}
 }

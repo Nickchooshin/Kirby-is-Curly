@@ -16,6 +16,15 @@
     <Filter Include="src\Dialog">
       <UniqueIdentifier>{c01c6a42-32ad-497a-b9db-516eb90be847}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Room">
+      <UniqueIdentifier>{2bb988af-a4f0-4c2f-a687-d5f33f6b93d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Popup">
+      <UniqueIdentifier>{d0c99952-ee91-4821-93ed-d4a93c90abbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Data">
+      <UniqueIdentifier>{551d2dcc-274c-476e-a1a6-0d671f1ac78e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,6 +45,18 @@
     <ClCompile Include="..\Classes\Dialog.cpp">
       <Filter>src\Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Room.cpp">
+      <Filter>src\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UI_PopupWindowBase.cpp">
+      <Filter>src\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UIPopupWindow.cpp">
+      <Filter>src\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataManager.cpp">
+      <Filter>src\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -55,6 +76,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Dialog.h">
       <Filter>src\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Room.h">
+      <Filter>src\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UI_PopupWindowBase.h">
+      <Filter>src\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UIPopupWindow.h">
+      <Filter>src\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Singleton.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataManager.h">
+      <Filter>src\Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
