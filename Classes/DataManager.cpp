@@ -20,12 +20,17 @@ std::string DataManager::GetActionName(int actionNum) const
 	return actionDocument[actionNum - 1]["Action"].GetString();
 }
 
-int DataManager::GetChildHappniess(int actionNum) const
+int DataManager::GetChildHappiness(int actionNum) const
 {
 	return actionDocument[actionNum - 1]["Child"].GetInt();
 }
 
-int DataManager::GetMotherHappniess(int actionNum) const
+int DataManager::GetMotherHappiness(int actionNum) const
 {
 	return actionDocument[actionNum - 1]["Mother"].GetInt();
+}
+
+std::string DataManager::GetScriptPath(int actionNum) const
+{
+	return actionDocument[actionNum - 1]["Script"].GetString();
 }

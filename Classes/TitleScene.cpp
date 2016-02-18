@@ -2,7 +2,7 @@
 #include "GameScene.h"
 #include "ui/CocosGUI.h"
 #include "SimpleAudioEngine.h"
-#include "AudioEngine.h"
+#include "DataManager.h"
 
 USING_NS_CC;
 
@@ -66,9 +66,11 @@ void TitleScene::clickEvent(Ref *pSender)
 	switch (tag)
 	{
 	case 0:
-		UserDefault::getInstance()->setBoolForKey("save", false);
-		UserDefault::getInstance()->setIntegerForKey("child_happiness", 5);
-		UserDefault::getInstance()->setIntegerForKey("mother_happiness", 5);
+		//UserDefault::getInstance()->setBoolForKey("save", false);
+		//UserDefault::getInstance()->setIntegerForKey("child_happiness", 5);
+		//UserDefault::getInstance()->setIntegerForKey("mother_happiness", 5);
+		DataManager::getInstance()->childHappiness = 5;
+		DataManager::getInstance()->motherHappiness = 5;
 
 		Director::getInstance()->replaceScene(CCTransitionFade::create(3.0f, GameScene::createScene()));
 		break;

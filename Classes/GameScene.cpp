@@ -52,7 +52,7 @@ void GameScene::RoomsLoad()
 {
 	DataManager::getInstance()->LoadActionData();
 	
-	std::string filePath = FileUtils::getInstance()->fullPathForFilename("./Data/rooms_.json");
+	std::string filePath = FileUtils::getInstance()->fullPathForFilename("./Data/rooms.json");
 
 	char buffer[65536];
 	FILE *file = fopen(filePath.c_str(), "r");

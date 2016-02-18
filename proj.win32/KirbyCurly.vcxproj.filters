@@ -57,6 +57,9 @@
     <ClCompile Include="..\Classes\DataManager.cpp">
       <Filter>src\Data</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ActionScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\DataManager.h">
       <Filter>src\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

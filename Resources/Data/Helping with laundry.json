@@ -1,0 +1,6 @@
+[
+    { "dialog" : "message 9", "image" : "./Images/dummy_actionscene.png" },
+    { "dialog" : "message 8" },
+    { "dialog" : "message 7" },
+    { "dialog" : "message 6" }
+]

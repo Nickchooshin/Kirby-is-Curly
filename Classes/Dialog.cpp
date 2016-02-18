@@ -9,6 +9,7 @@ Dialog::Dialog()
 	: m_document()
 	, m_index(0)
 	, m_maxIndex(0)
+	, m_isEnd(false)
 	, m_label(nullptr)
 {
 }
@@ -23,12 +24,12 @@ bool Dialog::init()
 	ui::Scale9Sprite *frame = ui::Scale9Sprite::create("./Images/dummy_frame.png");
 	frame->setContentSize(Size(visibleSize.width, 100.0f));
 	frame->setPosition(Vec2(visibleSize.width / 2.0f, frame->getContentSize().height / 2.0f));
-	this->addChild(frame);
+	this->addChild(frame, 1);
 
 	m_label = Label::create("", "fonts/arial.ttf", 30.0f, frame->getContentSize());
 	m_label->setColor(Color3B(0, 0, 0));
 	m_label->setPosition(frame->getPosition());
-	this->addChild(m_label);
+	this->addChild(m_label, 2);
 
 	EventListenerMouse *eventListenerMouse = EventListenerMouse::create();
 	eventListenerMouse->onMouseDown = CC_CALLBACK_1(Dialog::DialogClick, this);
@@ -52,35 +53,37 @@ bool Dialog::LoadScript(std::string filePath)
 
 	m_index = 0;
 	m_maxIndex = m_document.Size();
+	m_isEnd = false;
 
-	m_label->setString(m_document[m_index]["dialog"].GetString());
+	Next();
 
 	return true;
 }
 
 bool Dialog::IsEnd() const
 {
-	return m_index == m_maxIndex;
+	return m_isEnd;
 }
 
 void Dialog::Next()
 {
-	if (m_index < m_maxIndex - 1)
+	if (m_index < m_maxIndex)
 	{
+		m_label->setString(m_document[m_index]["dialog"].GetString());
+
+		if (m_document[m_index].HasMember("image"))
+		{
+			Size visibleSize = Director::getInstance()->getVisibleSize();
+
+			Sprite *sprite = Sprite::create(m_document[m_index]["image"].GetString());
+			sprite->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
+			this->addChild(sprite, 0);
+		}
+
 		++m_index;
-
-		m_label->setString(m_document[m_index]["dialog"].GetString());
 	}
-}
-
-void Dialog::Prev()
-{
-	if (m_index > 0)
-	{
-		--m_index;
-
-		m_label->setString(m_document[m_index]["dialog"].GetString());
-	}
+	else
+		m_isEnd = true;
 }
 
 void Dialog::DialogClick(cocos2d::Ref *pSender)
@@ -92,10 +95,6 @@ void Dialog::DialogClick(cocos2d::Ref *pSender)
 	{
 	case 0:
 		Next();
-		break;
-
-	case 1:
-		Prev();
 		break;
 	}
 }

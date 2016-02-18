@@ -1,6 +1,7 @@
 #include "Room.h"
 #include "ui/CocosGUI.h"
 #include "DataManager.h"
+#include "ActionScene.h"
 
 #include "json/document.h"
 #include "json/filereadstream.h"
@@ -79,6 +80,8 @@ void Room::ClickMenu(Ref *pSender)
 		break;
 
 	default:
+		DataManager::getInstance()->actionNum = tag;
+		Director::getInstance()->pushScene(ActionScene::createScene());
 		break;
 	}
 

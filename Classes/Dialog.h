@@ -10,6 +10,7 @@ private:
 	rapidjson::Document m_document;
 	int m_index;
 	int m_maxIndex;
+	bool m_isEnd;
 
 	cocos2d::Label *m_label;
 
@@ -27,7 +28,6 @@ public:
 	bool IsEnd() const;
 private:
 	void Next();
-	void Prev();
 
 	void DialogClick(cocos2d::Ref *pSender);
 };
