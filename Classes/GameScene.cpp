@@ -9,6 +9,8 @@
 USING_NS_CC;
 
 GameScene::GameScene()
+	: m_childHappinessBar(nullptr)
+	, m_motherHappinessBar(nullptr)
 {
 }
 GameScene::~GameScene()
@@ -39,11 +41,27 @@ bool GameScene::init()
 	background->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
 	this->addChild(background);
 
-	Dialog *dialog = Dialog::create();
-	dialog->LoadScript("./Data/test_script.json");
-	//this->addChild(dialog);
+	Sprite *childHappinessBarFrame = Sprite::create("./Images/dummy_gauge_frame.png");
+	childHappinessBarFrame->setPosition(1000.0f, visibleSize.height - 250);
+	this->addChild(childHappinessBarFrame);
+
+	m_childHappinessBar = ui::LoadingBar::create("./Images/dummy_gauge.png");
+	m_childHappinessBar->setPosition(childHappinessBarFrame->getPosition());
+	m_childHappinessBar->setColor(Color3B(125, 255, 125));
+	this->addChild(m_childHappinessBar);
+
+	Sprite *motherHappinessBarFrame = Sprite::create("./Images/dummy_gauge_frame.png");
+	motherHappinessBarFrame->setPosition(1000.0f, visibleSize.height - 200);
+	this->addChild(motherHappinessBarFrame);
+
+	m_motherHappinessBar = ui::LoadingBar::create("./Images/dummy_gauge.png");
+	m_motherHappinessBar->setPosition(motherHappinessBarFrame->getPosition());
+	m_motherHappinessBar->setColor(Color3B(125, 255, 125));
+	this->addChild(m_motherHappinessBar);
 
 	RoomsLoad();
+
+	this->schedule(schedule_selector(GameScene::UpdateHappiness));
 
 	return true;
 }
@@ -81,4 +99,13 @@ void GameScene::RoomsLoad()
 		this->addChild(room);
 		
 	}
+}
+
+void GameScene::UpdateHappiness(float dt)
+{
+	int childHappiness = DataManager::getInstance()->childHappiness;
+	int motherHappiness = DataManager::getInstance()->motherHappiness;
+
+	m_childHappinessBar->setPercent((childHappiness / 15.0f) * 100.0f);
+	m_motherHappinessBar->setPercent((motherHappiness / 15.0f) * 100.0f);
 }
