@@ -13,6 +13,7 @@ public:
 	int actionNum;
 	int childHappiness;
 	int motherHappiness;
+	int time;
 
 public:
 	void LoadActionData();

@@ -11,6 +11,7 @@ USING_NS_CC;
 GameScene::GameScene()
 	: m_childHappinessBar(nullptr)
 	, m_motherHappinessBar(nullptr)
+	, m_hourHand(nullptr)
 {
 }
 GameScene::~GameScene()
@@ -59,9 +60,22 @@ bool GameScene::init()
 	m_motherHappinessBar->setColor(Color3B(125, 255, 125));
 	this->addChild(m_motherHappinessBar);
 
+	Sprite *clock = Sprite::create("./Images/dummy_clock.png");
+	clock->setPosition(200.0f, visibleSize.height - 200.0f);
+	this->addChild(clock);
+
+	Sprite *minuteHand = Sprite::create("./Images/dummy_clock_minute_hand.png");
+	minuteHand->setPosition(clock->getPosition());
+	this->addChild(minuteHand);
+
+	m_hourHand = Sprite::create("./Images/dummy_clock_hour_hand.png");
+	m_hourHand->setPosition(clock->getPosition());
+	this->addChild(m_hourHand);
+
 	RoomsLoad();
 
 	this->schedule(schedule_selector(GameScene::UpdateHappiness));
+	this->schedule(schedule_selector(GameScene::UpdateTime));
 
 	return true;
 }
@@ -97,7 +111,6 @@ void GameScene::RoomsLoad()
 		for (int j = 0; j < actionValue.Size(); j++)
 			room->AddAction(actionValue[j].GetInt());
 		this->addChild(room);
-		
 	}
 }
 
@@ -108,4 +121,11 @@ void GameScene::UpdateHappiness(float dt)
 
 	m_childHappinessBar->setPercent((childHappiness / 15.0f) * 100.0f);
 	m_motherHappinessBar->setPercent((motherHappiness / 15.0f) * 100.0f);
+}
+
+void GameScene::UpdateTime(float dt)
+{
+	int time = DataManager::getInstance()->time;
+
+	m_hourHand->setRotation((time % 12) * 30.0f);
 }

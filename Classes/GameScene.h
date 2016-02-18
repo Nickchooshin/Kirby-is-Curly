@@ -9,6 +9,7 @@ class GameScene : public cocos2d::Layer
 private:
 	cocos2d::ui::LoadingBar *m_childHappinessBar;
 	cocos2d::ui::LoadingBar *m_motherHappinessBar;
+	cocos2d::Sprite *m_hourHand;
 
 public:
 	GameScene();
@@ -23,6 +24,7 @@ public:
 private:
 	void RoomsLoad();
 	void UpdateHappiness(float dt);
+	void UpdateTime(float dt);
 };
 
 #endif

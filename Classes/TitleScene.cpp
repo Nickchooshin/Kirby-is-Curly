@@ -71,6 +71,7 @@ void TitleScene::clickEvent(Ref *pSender)
 		//UserDefault::getInstance()->setIntegerForKey("mother_happiness", 5);
 		DataManager::getInstance()->childHappiness = 5;
 		DataManager::getInstance()->motherHappiness = 5;
+		DataManager::getInstance()->time = 10;
 
 		Director::getInstance()->replaceScene(CCTransitionFade::create(3.0f, GameScene::createScene()));
 		break;
