@@ -1,5 +1,7 @@
 #include "Dialog.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
+
 #include "json/document.h"
 #include "json/filereadstream.h"
 
@@ -78,6 +80,11 @@ void Dialog::Next()
 			Sprite *sprite = Sprite::create(m_document[m_index]["image"].GetString());
 			sprite->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
 			this->addChild(sprite, 0);
+		}
+
+		if (m_document[m_index].HasMember("sound"))
+		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(m_document[m_index]["sound"].GetString());
 		}
 
 		++m_index;

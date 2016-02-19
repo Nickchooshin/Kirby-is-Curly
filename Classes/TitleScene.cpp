@@ -1,7 +1,6 @@
 #include "TitleScene.h"
 #include "GameScene.h"
 #include "ui/CocosGUI.h"
-#include "SimpleAudioEngine.h"
 #include "DataManager.h"
 
 USING_NS_CC;
@@ -50,11 +49,6 @@ bool TitleScene::init()
 	exitButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
 	exitButton->setTag(2);
 	this->addChild(exitButton);
-
-	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("abc.mp3");
-	//CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(0.5);
-	//CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.5);
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("background.ogg");
 	return true;
 }
 

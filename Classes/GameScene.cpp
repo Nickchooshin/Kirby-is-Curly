@@ -2,6 +2,7 @@
 #include "Dialog.h"
 #include "Room.h"
 #include "DataManager.h"
+#include "SimpleAudioEngine.h"
 
 #include "json/document.h"
 #include "json/filereadstream.h"
@@ -86,6 +87,8 @@ bool GameScene::init()
 	this->schedule(schedule_selector(GameScene::UpdateHappiness));
 	this->schedule(schedule_selector(GameScene::UpdateTime));
 	this->schedule(schedule_selector(GameScene::UpdateMotherPosition));
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("./Sounds/Music/Kirby is Kurly Tune.mp3", true);
 
 	return true;
 }
