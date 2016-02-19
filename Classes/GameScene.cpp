@@ -80,7 +80,7 @@ bool GameScene::init()
 
 	// Clock
 	Sprite *clock = Sprite::create("./Images/dummy_clock.png");
-	clock->setPosition(200.0f, visibleSize.height - 200.0f);
+	clock->setPosition(150.0f, visibleSize.height - 150.0f);
 	this->addChild(clock);
 
 	Sprite *minuteHand = Sprite::create("./Images/dummy_clock_minute_hand.png");
@@ -91,13 +91,14 @@ bool GameScene::init()
 	m_hourHand->setPosition(clock->getPosition());
 	this->addChild(m_hourHand);
 
-	// Room
-	RoomsLoad();
-
 	// Mother
 	m_mother = Sprite::create("./Images/dummy_mother.png");
 	this->addChild(m_mother);
 
+	// Room
+	RoomsLoad();
+
+	// Mother Position
 	srand(time(0));
 	DataManager::getInstance()->SetRoomNum(m_roomPositions.size());
 	DataManager::getInstance()->RandomMotherPosition();
@@ -115,6 +116,8 @@ bool GameScene::init()
 
 void GameScene::RoomsLoad()
 {
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
 	DataManager::getInstance()->LoadActionData();
 	
 	std::string filePath = FileUtils::getInstance()->fullPathForFilename("./Data/rooms.json");
@@ -137,7 +140,7 @@ void GameScene::RoomsLoad()
 		std::string name = roomValue["Room"].GetString();
 		std::string sprite = roomValue["Sprite"].GetString();
 		float positionX = roomValue["PositionX"].GetDouble();
-		float positionY = roomValue["PositionY"].GetDouble();
+		float positionY = visibleSize.height - roomValue["PositionY"].GetDouble();
 
 		Room *room = Room::create(name, sprite, i);
 		room->setPosition(positionX, positionY);

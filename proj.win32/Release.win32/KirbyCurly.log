@@ -6,7 +6,7 @@ c:\users\sk\desktop\gamejam\kirbycurly\cocos2d\cocos\platform/CCSAXParser.h : wa
 C:\Users\SK\Desktop\GameJam\KirbyCurly\cocos2d\cocos\ui/UIHelper.h : warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
 c:\users\sk\desktop\gamejam\kirbycurly\classes\Singleton.h(30): warning C4227: 오래된 구문을 사용했습니다. 참조의 한정자가 무시됩니다.
   c:\users\sk\desktop\gamejam\kirbycurly\classes\Singleton.h(32): note: 컴파일 중인 클래스 템플릿 인스턴스화 'Singleton<T>'에 대한 참조를 확인하십시오.
-..\Classes\GameScene.cpp(144): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+..\Classes\GameScene.cpp(147): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
      C:\Users\SK\Desktop\GameJam\KirbyCurly\proj.win32\Release.win32\KirbyCurly.lib 라이브러리 및 C:\Users\SK\Desktop\GameJam\KirbyCurly\proj.win32\Release.win32\KirbyCurly.exp 개체를 생성하고 있습니다.
   코드를 생성하고 있습니다.
   1 of 1243 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
@@ -14,6 +14,4 @@ c:\users\sk\desktop\gamejam\kirbycurly\classes\Singleton.h(30): warning C4227: �
     0 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   KirbyCurly.vcxproj -> C:\Users\SK\Desktop\GameJam\KirbyCurly\proj.win32\Release.win32\KirbyCurly.exe
-  C:\Users\SK\Desktop\GameJam\KirbyCurly\Resources\Images\house_back.png -> C:\Users\SK\Desktop\GameJam\KirbyCurly\proj.win32\Release.win32\Images\house_back.png
-  C:\Users\SK\Desktop\GameJam\KirbyCurly\Resources\Images\house_front.png -> C:\Users\SK\Desktop\GameJam\KirbyCurly\proj.win32\Release.win32\Images\house_front.png
-  2 File(s) copied
+  0 File(s) copied
