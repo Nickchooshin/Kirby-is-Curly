@@ -41,10 +41,12 @@ bool GameScene::init()
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
+	// Background
 	Sprite *background = Sprite::create("./Images/temp.jpg");
 	background->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
 	this->addChild(background);
 
+	// Child HappinessBar
 	Sprite *childHappinessBarFrame = Sprite::create("./Images/dummy_gauge_frame.png");
 	childHappinessBarFrame->setPosition(1000.0f, visibleSize.height - 250);
 	this->addChild(childHappinessBarFrame);
@@ -54,6 +56,11 @@ bool GameScene::init()
 	m_childHappinessBar->setColor(Color3B(125, 255, 125));
 	this->addChild(m_childHappinessBar);
 
+	Sprite *childHappinessIcon = Sprite::create("./Images/dummy_icon_c.png");
+	childHappinessIcon->setPosition(childHappinessBarFrame->getPosition().x - (childHappinessBarFrame->getContentSize().width / 2.0f) - childHappinessIcon->getContentSize().width / 2.0f, childHappinessBarFrame->getPosition().y);
+	this->addChild(childHappinessIcon);
+
+	// Mother HappinessBar
 	Sprite *motherHappinessBarFrame = Sprite::create("./Images/dummy_gauge_frame.png");
 	motherHappinessBarFrame->setPosition(1000.0f, visibleSize.height - 200);
 	this->addChild(motherHappinessBarFrame);
@@ -63,6 +70,11 @@ bool GameScene::init()
 	m_motherHappinessBar->setColor(Color3B(125, 255, 125));
 	this->addChild(m_motherHappinessBar);
 
+	Sprite *motherHappinessIcon = Sprite::create("./Images/dummy_icon_m.png");
+	motherHappinessIcon->setPosition(motherHappinessBarFrame->getPosition().x - (motherHappinessBarFrame->getContentSize().width / 2.0f) - motherHappinessIcon->getContentSize().width / 2.0f, motherHappinessBarFrame->getPosition().y);
+	this->addChild(motherHappinessIcon);
+
+	// Clock
 	Sprite *clock = Sprite::create("./Images/dummy_clock.png");
 	clock->setPosition(200.0f, visibleSize.height - 200.0f);
 	this->addChild(clock);
@@ -75,8 +87,10 @@ bool GameScene::init()
 	m_hourHand->setPosition(clock->getPosition());
 	this->addChild(m_hourHand);
 
+	// Room
 	RoomsLoad();
 
+	// Mother
 	m_mother = Sprite::create("./Images/dummy_mother.png");
 	this->addChild(m_mother);
 
@@ -84,10 +98,12 @@ bool GameScene::init()
 	DataManager::getInstance()->SetRoomNum(m_roomPositions.size());
 	DataManager::getInstance()->RandomMotherPosition();
 
+	// Schedule
 	this->schedule(schedule_selector(GameScene::UpdateHappiness));
 	this->schedule(schedule_selector(GameScene::UpdateTime));
 	this->schedule(schedule_selector(GameScene::UpdateMotherPosition));
 
+	// Audio
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("./Sounds/Music/Kirby is Kurly Tune.mp3", true);
 
 	return true;

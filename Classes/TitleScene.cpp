@@ -35,7 +35,7 @@ bool TitleScene::init()
 	startButton->setTag(0);
 	this->addChild(startButton);
 
-	ui::Button *loadButton = ui::Button::create("./Images/dummy_load.png");
+	ui::Button *loadButton = ui::Button::create("./Images/dummy_click.png");
 	loadButton->setPosition(Vec2(visibleSize.width / 2.0f, 160.0f));
 	loadButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
 	loadButton->setTag(1);
@@ -75,6 +75,11 @@ void TitleScene::clickEvent(Ref *pSender)
 		break;
 
 	case 2:
+		Director::getInstance()->end();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+		exit(0);
+#endif
 		break;
 	}
 }
