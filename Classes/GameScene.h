@@ -27,7 +27,6 @@ public:
 private:
 	void RoomsLoad();
 	void UpdateHappiness(float dt);
-	void UpdateTime(float dt);
 	void UpdateMotherPosition(float dt);
 };
 

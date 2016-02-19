@@ -3,6 +3,7 @@
 #include "Room.h"
 #include "DataManager.h"
 #include "SimpleAudioEngine.h"
+#include "Clock.h"
 
 #include "json/document.h"
 #include "json/filereadstream.h"
@@ -52,7 +53,7 @@ bool GameScene::init()
 
 	// Child HappinessBar
 	Sprite *childHappinessBarFrame = Sprite::create("./Images/dummy_gauge_frame.png");
-	childHappinessBarFrame->setPosition(1000.0f, visibleSize.height - 250);
+	childHappinessBarFrame->setPosition(1200.0f, visibleSize.height - 100);
 	this->addChild(childHappinessBarFrame);
 
 	m_childHappinessBar = ui::LoadingBar::create("./Images/dummy_gauge.png");
@@ -66,7 +67,7 @@ bool GameScene::init()
 
 	// Mother HappinessBar
 	Sprite *motherHappinessBarFrame = Sprite::create("./Images/dummy_gauge_frame.png");
-	motherHappinessBarFrame->setPosition(1000.0f, visibleSize.height - 200);
+	motherHappinessBarFrame->setPosition(1200.0f, visibleSize.height - 50);
 	this->addChild(motherHappinessBarFrame);
 
 	m_motherHappinessBar = ui::LoadingBar::create("./Images/dummy_gauge.png");
@@ -79,17 +80,9 @@ bool GameScene::init()
 	this->addChild(motherHappinessIcon);
 
 	// Clock
-	Sprite *clock = Sprite::create("./Images/dummy_clock.png");
-	clock->setPosition(150.0f, visibleSize.height - 150.0f);
+	Clock *clock = Clock::create();
+	clock->setPosition(100.0f, visibleSize.height - 100.0f);
 	this->addChild(clock);
-
-	Sprite *minuteHand = Sprite::create("./Images/dummy_clock_minute_hand.png");
-	minuteHand->setPosition(clock->getPosition());
-	this->addChild(minuteHand);
-
-	m_hourHand = Sprite::create("./Images/dummy_clock_hour_hand.png");
-	m_hourHand->setPosition(clock->getPosition());
-	this->addChild(m_hourHand);
 
 	// Mother
 	m_mother = Sprite::create("./Images/dummy_mother.png");
@@ -105,7 +98,6 @@ bool GameScene::init()
 
 	// Schedule
 	this->schedule(schedule_selector(GameScene::UpdateHappiness));
-	this->schedule(schedule_selector(GameScene::UpdateTime));
 	this->schedule(schedule_selector(GameScene::UpdateMotherPosition));
 
 	// Audio
@@ -160,18 +152,6 @@ void GameScene::UpdateHappiness(float dt)
 
 	m_childHappinessBar->setPercent((childHappiness / maxHapiness) * 100.0f);
 	m_motherHappinessBar->setPercent((motherHappiness / maxHapiness) * 100.0f);
-}
-
-void GameScene::UpdateTime(float dt)
-{
-	int time = DataManager::getInstance()->time;
-
-	m_hourHand->setRotation((time % 12) * 30.0f);
-
-	if (time >= 20)
-	{
-		// Ending Scene
-	}
 }
 
 void GameScene::UpdateMotherPosition(float dt)
