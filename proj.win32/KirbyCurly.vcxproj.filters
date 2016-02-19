@@ -60,6 +60,9 @@
     <ClCompile Include="..\Classes\ActionScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LogoScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -96,6 +99,9 @@
       <Filter>src\Data</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ActionScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LogoScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
