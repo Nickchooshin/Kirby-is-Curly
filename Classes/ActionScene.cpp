@@ -39,8 +39,9 @@ void ActionScene::dialogEndCheck(float dt)
 	if (m_dialog->IsEnd())
 	{
 		int actionNum = DataManager::getInstance()->actionNum;
-		DataManager::getInstance()->childHappiness += DataManager::getInstance()->GetChildHappiness(actionNum);
-		DataManager::getInstance()->motherHappiness += DataManager::getInstance()->GetMotherHappiness(actionNum);
+		DataManager::getInstance()->AddChildHapinessValue(actionNum);
+		DataManager::getInstance()->AddMotherHapinessValue(actionNum);
+		DataManager::getInstance()->prevActionNum = actionNum;
 		DataManager::getInstance()->time += 1;
 		DataManager::getInstance()->RandomMotherPosition();
 

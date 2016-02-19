@@ -3,6 +3,17 @@
 
 #include "json/filereadstream.h""
 
+const float PENALTY = 0.8f;
+
+void DataManager::Init()
+{
+	childHappiness = 5.0f;
+	motherHappiness = 5.0f;
+	time = 10;
+
+	maxHapiness = 10.0f;
+}
+
 void DataManager::LoadActionData()
 {
 	std::string filePath = cocos2d::FileUtils::getInstance()->fullPathForFilename("./Data/actions.json");
@@ -56,6 +67,36 @@ int DataManager::GetActionIfType(int actionNum) const
 	}
 
 	return 0;
+}
+
+void DataManager::AddChildHapinessValue(int actionNum)
+{
+	float value = DataManager::getInstance()->GetChildHappiness(actionNum);
+
+	if (prevActionNum == actionNum)
+		value *= PENALTY;
+
+	childHappiness += value;
+
+	if (childHappiness < 0.0f)
+		childHappiness = 0.0f;
+	else if (childHappiness > maxHapiness)
+		childHappiness = maxHapiness;
+}
+
+void DataManager::AddMotherHapinessValue(int actionNum)
+{
+	float value = DataManager::getInstance()->GetMotherHappiness(actionNum);
+
+	if (prevActionNum == actionNum)
+		value *= PENALTY;
+
+	motherHappiness += value;
+
+	if (motherHappiness < 0.0f)
+		motherHappiness = 0.0f;
+	else if (motherHappiness > maxHapiness)
+		motherHappiness = maxHapiness;
 }
 
 void DataManager::RandomMotherPosition()

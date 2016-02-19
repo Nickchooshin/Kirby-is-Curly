@@ -42,9 +42,13 @@ bool GameScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	// Background
-	Sprite *background = Sprite::create("./Images/temp.jpg");
+	Sprite *background = Sprite::create("./Images/house_back.png");
 	background->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
 	this->addChild(background);
+
+	Sprite *background2 = Sprite::create("./Images/house_front.png");
+	background2->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
+	this->addChild(background2);
 
 	// Child HappinessBar
 	Sprite *childHappinessBarFrame = Sprite::create("./Images/dummy_gauge_frame.png");
@@ -147,11 +151,12 @@ void GameScene::RoomsLoad()
 
 void GameScene::UpdateHappiness(float dt)
 {
-	int childHappiness = DataManager::getInstance()->childHappiness;
-	int motherHappiness = DataManager::getInstance()->motherHappiness;
+	float maxHapiness = DataManager::getInstance()->maxHapiness;
+	float childHappiness = DataManager::getInstance()->childHappiness;
+	float motherHappiness = DataManager::getInstance()->motherHappiness;
 
-	m_childHappinessBar->setPercent((childHappiness / 15.0f) * 100.0f);
-	m_motherHappinessBar->setPercent((motherHappiness / 15.0f) * 100.0f);
+	m_childHappinessBar->setPercent((childHappiness / maxHapiness) * 100.0f);
+	m_motherHappinessBar->setPercent((motherHappiness / maxHapiness) * 100.0f);
 }
 
 void GameScene::UpdateTime(float dt)

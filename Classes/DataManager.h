@@ -13,11 +13,15 @@ private:
 	int m_roomNum;
 public:
 	int actionNum;
-	int childHappiness;
-	int motherHappiness;
 	int time;
+	float childHappiness;
+	float motherHappiness;
+	float maxHapiness;
+	int prevActionNum;
 
 public:
+	void Init();
+
 	void LoadActionData();
 
 	void SetRoomNum(int roonNum);
@@ -28,6 +32,9 @@ public:
 	std::string GetScriptPath(int actionNum) const;
 	int GetMotherPosition() const;
 	int GetActionIfType(int actionNum) const;
+
+	void AddChildHapinessValue(int actionNum);
+	void AddMotherHapinessValue(int actionNum);
 
 	void RandomMotherPosition();
 };

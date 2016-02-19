@@ -68,9 +68,7 @@ void TitleScene::clickEvent(Ref *pSender)
 	switch (tag)
 	{
 	case 0:
-		DataManager::getInstance()->childHappiness = 5;
-		DataManager::getInstance()->motherHappiness = 5;
-		DataManager::getInstance()->time = 10;
+		DataManager::getInstance()->Init();
 
 		CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
 		Director::getInstance()->replaceScene(CCTransitionFade::create(3.0f, GameScene::createScene()));
