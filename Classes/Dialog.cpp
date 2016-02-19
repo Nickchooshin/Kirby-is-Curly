@@ -79,6 +79,7 @@ void Dialog::Next()
 
 			Sprite *sprite = Sprite::create(m_document[m_index]["image"].GetString());
 			sprite->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
+			sprite->setScale(visibleSize.width / sprite->getContentSize().width, visibleSize.height / sprite->getContentSize().height);
 			this->addChild(sprite, 0);
 		}
 

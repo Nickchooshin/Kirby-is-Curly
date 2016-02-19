@@ -26,9 +26,13 @@ bool TitleScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	// Background
-	Sprite *background = Sprite::create("./Images/dummy_color.png");
+	Sprite *background = Sprite::create("./Images/house_back.png");
 	background->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
 	this->addChild(background);
+
+	Sprite *background2 = Sprite::create("./Images/house_front.png");
+	background2->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
+	this->addChild(background2);
 
 	// Buttons
 	ui::Button *startButton = ui::Button::create("./Images/dummy_start.png");

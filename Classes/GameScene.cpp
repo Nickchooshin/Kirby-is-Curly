@@ -85,44 +85,49 @@ bool GameScene::init()
 	clock->setPosition(100.0f, visibleSize.height - 100.0f);
 	this->addChild(clock);
 
+	// Room
+	RoomsLoad();
+
 	// Mother
 	m_mother = Sprite::create("./Images/dummy_mother.png");
 	this->addChild(m_mother);
 
 	Animation *motherAnimation = Animation::create();
-	motherAnimation->setDelayPerUnit(0.1f);
-	motherAnimation->addSpriteFrameWithFile("./Images/dummy_mother.png");
-	motherAnimation->addSpriteFrameWithFile("./Images/dummy_mother2.png");
+	motherAnimation->setDelayPerUnit(0.25f);
+	motherAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelmom/squirrelmom01.png");
+	motherAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelmom/squirrelmom02.png");
+	motherAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelmom/squirrelmom03.png");
+	motherAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelmom/squirrelmom04.png");
 
 	Animate *motherAnimate = Animate::create(motherAnimation);
 	RepeatForever *motherRepeat = RepeatForever::create(motherAnimate);
 
+	m_mother->setScale(0.5f);
+	//m_mother->setAnchorPoint(Vec2(0.5f, 0.144750254841998f));
 	m_mother->runAction(motherRepeat);
 
 	// Child
 	m_child = Sprite::create("./Images/dummy_child.png");
-	//this->addChild(m_child);
+	this->addChild(m_child);
 
 	Animation *childAnimation = Animation::create();
-	childAnimation->setDelayPerUnit(0.1f);
-	childAnimation->addSpriteFrameWithFile("./Images/dummy_child.png");
-	childAnimation->addSpriteFrameWithFile("./Images/dummy_child2.png");
+	childAnimation->setDelayPerUnit(0.25f);
+	childAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelkidfront/squirrelkidfront01.png");
+	childAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelkidfront/squirrelkidfront02.png");
+	childAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelkidfront/squirrelkidfront03.png");
+	childAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelkidfront/squirrelkidfront04.png");
 
 	Animate *childAnimate = Animate::create(childAnimation);
 	RepeatForever *childRepeat = RepeatForever::create(childAnimate);
 
+	m_child->setScale(0.5f);
+	//m_child->setAnchorPoint(Vec2(0.5f, 0.1187607573149742f));
 	m_child->runAction(childRepeat);
-
-	// Room
-	RoomsLoad();
 
 	// Mother Position
 	srand(time(0));
 	DataManager::getInstance()->SetRoomNum(m_roomPositions.size());
 	DataManager::getInstance()->RandomMotherPosition();
-
-	// Child Position
-	this->addChild(m_child);
 
 	// Schedule
 	this->schedule(schedule_selector(GameScene::UpdateHappiness));

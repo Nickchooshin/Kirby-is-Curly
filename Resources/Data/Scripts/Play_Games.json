@@ -1,0 +1,6 @@
+[
+    { "dialog" : "Play games", "image" : "./Images/screen1.jpg" },
+    { "dialog" : "effect", "sound" : "./Sounds/WAV/Play_Games.wav" },
+    { "dialog" : "Play games2" },
+    { "dialog" : "Play games3" }
+]

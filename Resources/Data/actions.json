@@ -3,20 +3,20 @@
         "Action" : "Helping with laundry",
         "Child" : -2,
         "Mother" : 3,
-        "Script" : "./Data/Helping with laundry.json"
+        "Script" : "./Data/Scripts/Helping with laundry.json"
     },
     {
         "Action" : "Look through old boxes for memories (if mom is present)",
         "If" : "Mother",
         "Child" : 1,
         "Mother" : 1,
-        "Script" : "./Data/test_script.json"
+        "Script" : "./Data/Scripts/Look through old boxes for memories.json"
     },
     {
         "Action" : "Play games",
         "Child" : 3,
         "Mother" : -2,
-        "Script" : "./Data/test_script.json"
+        "Script" : "./Data/Scripts/Play_Games.json"
     },
     {
         "Action" : "Read Books",
@@ -61,13 +61,13 @@
         "If" : "Mother",
         "Child" : 2,
         "Mother" : 1,
-        "Script" : "./Data/test_script.json"
+        "Script" : "./Data/Scripts/Watch movie with mom.json"
     },
     {
         "Action" : "play games",
         "Child" : 3,
         "Mother" : -2,
-        "Script" : "./Data/test_script.json"
+        "Script" : "./Data/Scripts/Play_Games.json"
     },
     {
         "Action" : "Help with cooking (if mom is present)",

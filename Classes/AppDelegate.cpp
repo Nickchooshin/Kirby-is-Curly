@@ -43,9 +43,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
         //glview = GLViewImpl::createWithRect("KirbyCurly", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
-        glview = GLViewImpl::createWithRect("KirbyCurly", Rect(0, 0, resolutionSize.width, resolutionSize.height));
+        glview = GLViewImpl::createWithRect("Home", Rect(0, 0, resolutionSize.width, resolutionSize.height));
 #else
-        glview = GLViewImpl::create("KirbyCurly");
+        glview = GLViewImpl::create("Home");
 #endif
         director->setOpenGLView(glview);
     }
