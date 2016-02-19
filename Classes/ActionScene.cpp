@@ -43,6 +43,7 @@ void ActionScene::dialogEndCheck(float dt)
 		DataManager::getInstance()->childHappiness += DataManager::getInstance()->GetChildHappiness(actionNum);
 		DataManager::getInstance()->motherHappiness += DataManager::getInstance()->GetMotherHappiness(actionNum);
 		DataManager::getInstance()->time += 1;
+		DataManager::getInstance()->RandomMotherPosition();
 
 		Director::getInstance()->popScene();
 	}

@@ -15,6 +15,11 @@ void DataManager::LoadActionData()
 	fclose(file);
 }
 
+void DataManager::SetRoomNum(int roonNum)
+{
+	m_roomNum = roonNum;
+}
+
 std::string DataManager::GetActionName(int actionNum) const
 {
 	return actionDocument[actionNum - 1]["Action"].GetString();
@@ -33,4 +38,35 @@ int DataManager::GetMotherHappiness(int actionNum) const
 std::string DataManager::GetScriptPath(int actionNum) const
 {
 	return actionDocument[actionNum - 1]["Script"].GetString();
+}
+
+int DataManager::GetMotherPosition() const
+{
+	return m_motherPosition;
+}
+
+int DataManager::GetActionIfType(int actionNum) const
+{
+	if (actionDocument[actionNum - 1].HasMember("If"))
+	{
+		if (actionDocument[actionNum - 1]["If"] == "Mother")
+			return 1;
+		else if (actionDocument[actionNum - 1]["If"] == "Friends")
+			return 2;
+	}
+
+	return 0;
+}
+
+void DataManager::RandomMotherPosition()
+{
+	// 5 ~ 7 pm
+	if (time >= 17 && time <= 19)
+	{
+		m_motherPosition = 5;
+	}
+	else
+	{
+		m_motherPosition = rand() % m_roomNum;
+	}
 }

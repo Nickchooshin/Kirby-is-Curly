@@ -12,6 +12,8 @@ GameScene::GameScene()
 	: m_childHappinessBar(nullptr)
 	, m_motherHappinessBar(nullptr)
 	, m_hourHand(nullptr)
+	, m_roomPositions()
+	, m_mother(nullptr)
 {
 }
 GameScene::~GameScene()
@@ -74,8 +76,16 @@ bool GameScene::init()
 
 	RoomsLoad();
 
+	m_mother = Sprite::create("./Images/dummy_mother.png");
+	this->addChild(m_mother);
+
+	srand(time(0));
+	DataManager::getInstance()->SetRoomNum(m_roomPositions.size());
+	DataManager::getInstance()->RandomMotherPosition();
+
 	this->schedule(schedule_selector(GameScene::UpdateHappiness));
 	this->schedule(schedule_selector(GameScene::UpdateTime));
+	this->schedule(schedule_selector(GameScene::UpdateMotherPosition));
 
 	return true;
 }
@@ -106,11 +116,13 @@ void GameScene::RoomsLoad()
 		float positionX = roomValue["PositionX"].GetDouble();
 		float positionY = roomValue["PositionY"].GetDouble();
 
-		Room *room = Room::create(name, sprite);
+		Room *room = Room::create(name, sprite, i);
 		room->setPosition(positionX, positionY);
 		for (int j = 0; j < actionValue.Size(); j++)
 			room->AddAction(actionValue[j].GetInt());
 		this->addChild(room);
+
+		m_roomPositions.emplace_back(Vec2(positionX, positionY));
 	}
 }
 
@@ -128,4 +140,16 @@ void GameScene::UpdateTime(float dt)
 	int time = DataManager::getInstance()->time;
 
 	m_hourHand->setRotation((time % 12) * 30.0f);
+
+	if (time >= 20)
+	{
+		// Ending Scene
+	}
+}
+
+void GameScene::UpdateMotherPosition(float dt)
+{
+	int motherPosition = DataManager::getInstance()->GetMotherPosition();
+
+	m_mother->setPosition(m_roomPositions[motherPosition]);
 }

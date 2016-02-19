@@ -10,20 +10,21 @@ class Room : public cocos2d::Node
 private:
 	std::string m_name;
 	std::string m_spritePath;
+	int m_num;
 
 	std::vector<int> m_actions;
 	UIPopupWindow *m_menuPopup;
 
 public:
-	Room(std::string name, std::string spritePath);
+	Room(std::string name, std::string spritePath, int num);
 	Room(const Room &);
 	~Room();
 
 	virtual bool init() override;
 
-	static Room* create(std::string name, std::string spritePath)
+	static Room* create(std::string name, std::string spritePath, int num)
 	{
-		Room *pRet = new(std::nothrow) Room(name, spritePath);
+		Room *pRet = new(std::nothrow) Room(name, spritePath, num);
 		if (pRet && pRet->init())
 		{
 			pRet->autorelease();

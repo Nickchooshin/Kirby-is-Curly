@@ -8,9 +8,10 @@
 
 USING_NS_CC;
 
-Room::Room(std::string name, std::string spritePath)
+Room::Room(std::string name, std::string spritePath, int num)
 	: m_name(name)
 	, m_spritePath(spritePath)
+	, m_num(num)
 	, m_actions()
 {
 }
@@ -43,13 +44,30 @@ void Room::ClickRoom(Ref *pSender)
 	int i;
 	for (i = 0; i < m_actions.size(); i++)
 	{
+		int action = m_actions[i];
+
 		ui::Button *button = ui::Button::create("./Images/dummy_button.png");
 		button->setPosition(Vec2(visibleSize.width / 2.0f, (visibleSize.height / 2.0f) + button->getContentSize().height - (button->getContentSize().height * i)));
-		button->setTag(m_actions[i]);
+		button->setTag(action);
 		button->addClickEventListener(CC_CALLBACK_1(Room::ClickMenu, this));
 		m_menuPopup->addChild(button);
 
-		Label *label = Label::create(DataManager::getInstance()->GetActionName(m_actions[i]), "fonts/arial.ttf", 20.0f, button->getContentSize(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+		if (DataManager::getInstance()->GetActionIfType(action) == 1)
+		{
+			int motherPosition = DataManager::getInstance()->GetMotherPosition();
+
+			if (motherPosition != m_num)
+				button->setEnabled(false);
+		}
+		else if (DataManager::getInstance()->GetActionIfType(action) == 2)
+		{
+			int time = DataManager::getInstance()->time;
+
+			if (time < 13 || time > 16)
+				button->setEnabled(false);
+		}
+
+		Label *label = Label::create(DataManager::getInstance()->GetActionName(action), "fonts/arial.ttf", 20.0f, button->getContentSize(), TextHAlignment::CENTER, TextVAlignment::CENTER);
 		label->setColor(Color3B(0, 0, 0));
 		label->setPosition(label->getContentSize().width / 2.0f, label->getContentSize().height / 2.0f);
 		button->addChild(label);
