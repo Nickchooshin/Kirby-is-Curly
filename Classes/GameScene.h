@@ -13,6 +13,7 @@ private:
 	cocos2d::Sprite *m_hourHand;
 	std::vector<cocos2d::Vec2> m_roomPositions;
 	cocos2d::Sprite *m_mother;
+	cocos2d::Sprite *m_child;
 
 public:
 	GameScene();
@@ -27,7 +28,7 @@ public:
 private:
 	void RoomsLoad();
 	void UpdateHappiness(float dt);
-	void UpdateMotherPosition(float dt);
+	void UpdateMotherAndChildPosition(float dt);
 };
 
 #endif

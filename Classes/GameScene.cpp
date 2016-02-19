@@ -16,6 +16,7 @@ GameScene::GameScene()
 	, m_hourHand(nullptr)
 	, m_roomPositions()
 	, m_mother(nullptr)
+	, m_child(nullptr)
 {
 }
 GameScene::~GameScene()
@@ -88,6 +89,30 @@ bool GameScene::init()
 	m_mother = Sprite::create("./Images/dummy_mother.png");
 	this->addChild(m_mother);
 
+	Animation *motherAnimation = Animation::create();
+	motherAnimation->setDelayPerUnit(0.1f);
+	motherAnimation->addSpriteFrameWithFile("./Images/dummy_mother.png");
+	motherAnimation->addSpriteFrameWithFile("./Images/dummy_mother2.png");
+
+	Animate *motherAnimate = Animate::create(motherAnimation);
+	RepeatForever *motherRepeat = RepeatForever::create(motherAnimate);
+
+	m_mother->runAction(motherRepeat);
+
+	// Child
+	m_child = Sprite::create("./Images/dummy_child.png");
+	//this->addChild(m_child);
+
+	Animation *childAnimation = Animation::create();
+	childAnimation->setDelayPerUnit(0.1f);
+	childAnimation->addSpriteFrameWithFile("./Images/dummy_child.png");
+	childAnimation->addSpriteFrameWithFile("./Images/dummy_child2.png");
+
+	Animate *childAnimate = Animate::create(childAnimation);
+	RepeatForever *childRepeat = RepeatForever::create(childAnimate);
+
+	m_child->runAction(childRepeat);
+
 	// Room
 	RoomsLoad();
 
@@ -96,9 +121,12 @@ bool GameScene::init()
 	DataManager::getInstance()->SetRoomNum(m_roomPositions.size());
 	DataManager::getInstance()->RandomMotherPosition();
 
+	// Child Position
+	this->addChild(m_child);
+
 	// Schedule
 	this->schedule(schedule_selector(GameScene::UpdateHappiness));
-	this->schedule(schedule_selector(GameScene::UpdateMotherPosition));
+	this->schedule(schedule_selector(GameScene::UpdateMotherAndChildPosition));
 
 	// Audio
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("./Sounds/Music/Kirby is Kurly Tune.mp3", true);
@@ -154,9 +182,15 @@ void GameScene::UpdateHappiness(float dt)
 	m_motherHappinessBar->setPercent((motherHappiness / maxHapiness) * 100.0f);
 }
 
-void GameScene::UpdateMotherPosition(float dt)
+void GameScene::UpdateMotherAndChildPosition(float dt)
 {
+	// Mother
 	int motherPosition = DataManager::getInstance()->GetMotherPosition();
 
 	m_mother->setPosition(m_roomPositions[motherPosition]);
+
+	// Child
+	int childPosition = DataManager::getInstance()->GetChildPosition();
+
+	m_child->setPosition(m_roomPositions[childPosition]);
 }

@@ -84,6 +84,8 @@ void Room::ClickRoom(Ref *pSender)
 	label->setPosition(label->getContentSize().width / 2.0f, label->getContentSize().height / 2.0f);
 	button->addChild(label);
 
+	DataManager::getInstance()->SetChildPosition(m_num);
+
 	m_menuPopup->showPopup((Layer*)this->getParent());
 }
 

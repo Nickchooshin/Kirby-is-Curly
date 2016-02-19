@@ -7,6 +7,8 @@ const float PENALTY = 0.8f;
 
 void DataManager::Init()
 {
+	m_childPosition = 0;
+
 	childHappiness = 5.0f;
 	motherHappiness = 5.0f;
 	time = 10;
@@ -56,6 +58,11 @@ int DataManager::GetMotherPosition() const
 	return m_motherPosition;
 }
 
+int DataManager::GetChildPosition() const
+{
+	return m_childPosition;
+}
+
 int DataManager::GetActionIfType(int actionNum) const
 {
 	if (actionDocument[actionNum - 1].HasMember("If"))
@@ -67,6 +74,11 @@ int DataManager::GetActionIfType(int actionNum) const
 	}
 
 	return 0;
+}
+
+void DataManager::SetChildPosition(int childPosition)
+{
+	m_childPosition = childPosition;
 }
 
 void DataManager::AddChildHapinessValue(int actionNum)

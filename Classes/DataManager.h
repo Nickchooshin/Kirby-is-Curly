@@ -10,6 +10,7 @@ class DataManager : public Singleton < DataManager >
 private:
 	rapidjson::Document actionDocument;
 	int m_motherPosition;
+	int m_childPosition;
 	int m_roomNum;
 public:
 	int actionNum;
@@ -31,7 +32,10 @@ public:
 	int GetMotherHappiness(int actionNum) const;
 	std::string GetScriptPath(int actionNum) const;
 	int GetMotherPosition() const;
+	int GetChildPosition() const;
 	int GetActionIfType(int actionNum) const;
+
+	void SetChildPosition(int childPosition);
 
 	void AddChildHapinessValue(int actionNum);
 	void AddMotherHapinessValue(int actionNum);
