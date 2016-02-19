@@ -1,0 +1,6 @@
+[
+    { "dialog" : "Helping with laundry(Image)", "image" : "./Images/dummy_actionscene.png" },
+    { "dialog" : "effect", "sound" : "./Sounds/WAV/Do_Laundry.wav" },
+    { "dialog" : "Helping with laundry2" },
+    { "dialog" : "Helping with laundry3" }
+]

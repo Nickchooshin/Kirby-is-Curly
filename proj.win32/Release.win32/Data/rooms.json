@@ -1,0 +1,51 @@
+[
+    {
+        "Room" : "Attic",
+        "Actions" : [ 1, 2 ],
+        "Sprite" : "./Images/dummy_room.png",
+        "PositionX" : 100.0,
+        "PositionY" : 100.0
+    },
+    {
+        "Room" : "Kid Room",
+        "Actions" : [ 3, 4, 5 ],
+        "Sprite" : "./Images/dummy_room.png",
+        "PositionX" : 200.0,
+        "PositionY" : 100.0
+    },
+    {
+        "Room" : "Bathroom",
+        "Actions" : [ 6, 7 ],
+        "Sprite" : "./Images/dummy_room.png",
+        "PositionX" : 300.0,
+        "PositionY" : 100.0
+    },
+    {
+        "Room" : "Parent's Room",
+        "Actions" : [ 8, 9 ],
+        "Sprite" : "./Images/dummy_room.png",
+        "PositionX" : 400.0,
+        "PositionY" : 100.0
+    },
+    {
+        "Room" : "Living Room",
+        "Actions" : [ 10, 11 ],
+        "Sprite" : "./Images/dummy_room.png",
+        "PositionX" : 500.0,
+        "PositionY" : 100.0
+    },
+    {
+        "Room" : "Kitchen",
+        "Actions" : [ 12, 13, 14 ],
+        "Sprite" : "./Images/dummy_room.png",
+        "PositionX" : 100.0,
+        "PositionY" : 200.0
+    },
+    {
+        "Room" : "Garden",
+        "Actions" : [ 15, 16, 17 ],
+        "Sprite" : "./Images/dummy_room.png",
+        "PositionX" : 200.0,
+        "PositionY" : 200.0
+    }
+]
