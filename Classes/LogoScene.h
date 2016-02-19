@@ -23,6 +23,8 @@ public:
 	void FadeIn(float dt);
 	void Stay(float dt);
 	void FadeOut(float dt);
+private:
+	void Click(cocos2d::Ref *pSender);
 };
 
 #endif

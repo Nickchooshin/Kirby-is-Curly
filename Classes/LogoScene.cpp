@@ -32,6 +32,10 @@ bool LogoScene::init()
 	this->schedule(schedule_selector(LogoScene::FadeIn));
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("./Sounds/WAV/Take_a_Bath.wav");
+
+	EventListenerMouse *eventListenerMouse = EventListenerMouse::create();
+	eventListenerMouse->onMouseDown = CC_CALLBACK_1(LogoScene::Click, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListenerMouse, this);
 	
 	return true;
 }
@@ -91,4 +95,11 @@ void LogoScene::FadeOut(float dt)
 	}
 
 	m_time += dt;
+}
+
+void LogoScene::Click(cocos2d::Ref *pSender)
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
+	CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(1.0f);
+	Director::getInstance()->replaceScene(TitleScene::createScene());
 }

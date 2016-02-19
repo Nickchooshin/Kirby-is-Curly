@@ -5,6 +5,9 @@
 
 class TitleScene : public cocos2d::Scene
 {
+private:
+	int commandCount;
+
 public:
 	TitleScene();
 	TitleScene(const TitleScene &);
@@ -17,6 +20,9 @@ public:
 	CREATE_FUNC(TitleScene);
 private:
 	void TitleScene::clickEvent(Ref *pSender);
+
+	void KeyDown(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* args);
+	void KeyUp(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* args);
 };
 
 #endif

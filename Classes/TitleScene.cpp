@@ -2,10 +2,12 @@
 #include "GameScene.h"
 #include "ui/CocosGUI.h"
 #include "DataManager.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
 TitleScene::TitleScene()
+	: commandCount(0)
 {
 }
 TitleScene::~TitleScene()
@@ -23,12 +25,12 @@ bool TitleScene::init()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	//Sprite *background = Sprite::create("./Images/dummy_title.png");
+	// Background
 	Sprite *background = Sprite::create("./Images/dummy_color.png");
 	background->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
-	//background->setColor(Color3B(125, 125, 125));
 	this->addChild(background);
 
+	// Buttons
 	ui::Button *startButton = ui::Button::create("./Images/dummy_start.png");
 	startButton->setPosition(Vec2(visibleSize.width / 2.0f, 240.0f));
 	startButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
@@ -49,6 +51,12 @@ bool TitleScene::init()
 	exitButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
 	exitButton->setTag(2);
 	this->addChild(exitButton);
+
+	// Keyboard
+	EventListenerKeyboard *eventListenerKeyboard = EventListenerKeyboard::create();
+	eventListenerKeyboard->onKeyPressed = CC_CALLBACK_2(TitleScene::KeyDown, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListenerKeyboard, this);
+
 	return true;
 }
 
@@ -60,17 +68,17 @@ void TitleScene::clickEvent(Ref *pSender)
 	switch (tag)
 	{
 	case 0:
-		//UserDefault::getInstance()->setBoolForKey("save", false);
-		//UserDefault::getInstance()->setIntegerForKey("child_happiness", 5);
-		//UserDefault::getInstance()->setIntegerForKey("mother_happiness", 5);
 		DataManager::getInstance()->childHappiness = 5;
 		DataManager::getInstance()->motherHappiness = 5;
 		DataManager::getInstance()->time = 10;
 
+		CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
 		Director::getInstance()->replaceScene(CCTransitionFade::create(3.0f, GameScene::createScene()));
 		break;
 
 	case 1:
+		CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
+
 		Director::getInstance()->replaceScene(CCTransitionFade::create(3.0f, GameScene::createScene()));
 		break;
 
@@ -81,5 +89,59 @@ void TitleScene::clickEvent(Ref *pSender)
 		exit(0);
 #endif
 		break;
+	}
+}
+
+void TitleScene::KeyDown(EventKeyboard::KeyCode keycode, cocos2d::Event* args)
+{
+	switch (keycode)
+	{
+	case EventKeyboard::KeyCode::KEY_UP_ARROW:
+		if (commandCount > 1)
+			commandCount = 1;
+		else
+			commandCount += 1;
+		break;
+
+	case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+		if (commandCount >= 2 && commandCount <= 3)
+			commandCount += 1;
+		else
+			commandCount = 0;
+		break;
+
+	case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+		if (commandCount == 4 || commandCount == 6)
+			commandCount += 1;
+		else
+			commandCount = 0;
+		break;
+
+	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+		if (commandCount == 5 || commandCount == 7)
+			commandCount += 1;
+		else
+			commandCount = 0;
+		break;
+
+	case EventKeyboard::KeyCode::KEY_B:
+		if (commandCount == 8)
+			commandCount += 1;
+		else
+			commandCount = 0;
+		break;
+
+	case EventKeyboard::KeyCode::KEY_A:
+		if (commandCount == 9)
+			commandCount += 1;
+		else
+			commandCount = 0;
+		break;
+	}
+	
+	if (commandCount == 10)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("./Sounds/WAV/Eat_Snack.wav");
+		commandCount = 0;
 	}
 }

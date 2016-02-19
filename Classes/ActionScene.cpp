@@ -26,7 +26,6 @@ bool ActionScene::init()
 	int actionNum = DataManager::getInstance()->actionNum;
 
 	m_dialog = Dialog::create();
-	m_dialog->LoadScript("./Data/test_script.json");
 	m_dialog->LoadScript(DataManager::getInstance()->GetScriptPath(actionNum));
 	this->addChild(m_dialog);
 
