@@ -4,6 +4,7 @@
 #include "DataManager.h"
 #include "SimpleAudioEngine.h"
 #include "Clock.h"
+#include "Navigation.h"
 
 #include "json/document.h"
 #include "json/filereadstream.h"
@@ -53,31 +54,31 @@ bool GameScene::init()
 	this->addChild(background2);
 
 	// Child HappinessBar
-	Sprite *childHappinessBarFrame = Sprite::create("./Images/dummy_gauge_frame.png");
-	childHappinessBarFrame->setPosition(1200.0f, visibleSize.height - 100);
-	this->addChild(childHappinessBarFrame);
-
-	m_childHappinessBar = ui::LoadingBar::create("./Images/dummy_gauge.png");
-	m_childHappinessBar->setPosition(childHappinessBarFrame->getPosition());
+	m_childHappinessBar = ui::LoadingBar::create("./Images/Gauge_Bar.png");
+	m_childHappinessBar->setPosition(Vec2(1200.0f, visibleSize.height - 100));
 	m_childHappinessBar->setColor(Color3B(125, 255, 125));
 	this->addChild(m_childHappinessBar);
 
-	Sprite *childHappinessIcon = Sprite::create("./Images/dummy_icon_c.png");
-	childHappinessIcon->setPosition(childHappinessBarFrame->getPosition().x - (childHappinessBarFrame->getContentSize().width / 2.0f) - childHappinessIcon->getContentSize().width / 2.0f, childHappinessBarFrame->getPosition().y);
+	Sprite *childHappinessBarFrame = Sprite::create("./Images/Gauge_Bar_Frame.png");
+	childHappinessBarFrame->setPosition(m_childHappinessBar->getContentSize().width / 2.0f, m_childHappinessBar->getContentSize().height / 2.0f);
+	m_childHappinessBar->addChild(childHappinessBarFrame);
+
+	Sprite *childHappinessIcon = Sprite::create("./Images/Icon_Child.png");
+	childHappinessIcon->setPosition(m_childHappinessBar->getPosition().x - (m_childHappinessBar->getContentSize().width / 2.0f) - childHappinessIcon->getContentSize().width / 2.0f, m_childHappinessBar->getPosition().y);
 	this->addChild(childHappinessIcon);
 
 	// Mother HappinessBar
-	Sprite *motherHappinessBarFrame = Sprite::create("./Images/dummy_gauge_frame.png");
-	motherHappinessBarFrame->setPosition(1200.0f, visibleSize.height - 50);
-	this->addChild(motherHappinessBarFrame);
-
-	m_motherHappinessBar = ui::LoadingBar::create("./Images/dummy_gauge.png");
-	m_motherHappinessBar->setPosition(motherHappinessBarFrame->getPosition());
+	m_motherHappinessBar = ui::LoadingBar::create("./Images/Gauge_Bar.png");
+	m_motherHappinessBar->setPosition(Vec2(1200.0f, visibleSize.height - 50));
 	m_motherHappinessBar->setColor(Color3B(125, 255, 125));
 	this->addChild(m_motherHappinessBar);
 
-	Sprite *motherHappinessIcon = Sprite::create("./Images/dummy_icon_m.png");
-	motherHappinessIcon->setPosition(motherHappinessBarFrame->getPosition().x - (motherHappinessBarFrame->getContentSize().width / 2.0f) - motherHappinessIcon->getContentSize().width / 2.0f, motherHappinessBarFrame->getPosition().y);
+	Sprite *motherHappinessBarFrame = Sprite::create("./Images/Gauge_Bar_Frame.png");
+	motherHappinessBarFrame->setPosition(m_motherHappinessBar->getContentSize().width / 2.0f, m_motherHappinessBar->getContentSize().height / 2.0f);
+	m_motherHappinessBar->addChild(motherHappinessBarFrame);
+
+	Sprite *motherHappinessIcon = Sprite::create("./Images/Icon_Mother.png");
+	motherHappinessIcon->setPosition(m_motherHappinessBar->getPosition().x - (m_motherHappinessBar->getContentSize().width / 2.0f) - motherHappinessIcon->getContentSize().width / 2.0f, m_motherHappinessBar->getPosition().y);
 	this->addChild(motherHappinessIcon);
 
 	// Clock
@@ -87,6 +88,11 @@ bool GameScene::init()
 
 	// Room
 	RoomsLoad();
+
+	// Mother Position
+	srand(time(0));
+	DataManager::getInstance()->SetRoomNum(m_roomPositions.size());
+	DataManager::getInstance()->RandomMotherPosition();
 
 	// Mother
 	m_mother = Sprite::create("./Images/dummy_mother.png");
@@ -123,20 +129,63 @@ bool GameScene::init()
 	m_child->setScale(0.5f);
 	//m_child->setAnchorPoint(Vec2(0.5f, 0.1187607573149742f));
 	m_child->runAction(childRepeat);
+	m_child->setPosition(m_roomPositions[0]);
 
-	// Mother Position
-	srand(time(0));
-	DataManager::getInstance()->SetRoomNum(m_roomPositions.size());
-	DataManager::getInstance()->RandomMotherPosition();
+	// Child Navigation;
+	m_childNavigation = Navigation::create();
+	m_childNavigation->SetCurrentPosition(0);
+	this->addChild(m_childNavigation, 0, "navigation");
 
 	// Schedule
 	this->schedule(schedule_selector(GameScene::UpdateHappiness));
-	this->schedule(schedule_selector(GameScene::UpdateMotherAndChildPosition));
+	this->schedule(schedule_selector(GameScene::UpdateMotherPosition));
 
 	// Audio
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("./Sounds/Music/Kirby is Kurly Tune.mp3", true);
 
+	// Custom Event Listener
+	EventListenerCustom *listenerChildMoving = EventListenerCustom::create("child_moving", CC_CALLBACK_1(GameScene::SetDestinationPosition, this));
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerChildMoving, this);
+
 	return true;
+}
+
+void GameScene::SetDestinationPosition(cocos2d::EventCustom *eventCustom)
+{
+	int destination = *(int*)eventCustom->getUserData();
+
+	m_childNavigation->FindPath(destination);
+
+	this->unschedule(schedule_selector(GameScene::ChildMoving));
+	this->schedule(schedule_selector(GameScene::ChildMoving));
+}
+
+void GameScene::ChildMoving(float dt)
+{
+	if (!m_childNavigation->IsEnd())
+	{
+		int roomNum = m_childNavigation->GetNextPosition();
+		Vec2 destination = m_roomPositions[roomNum];
+		float distance = (m_child->getPosition() - destination).length();
+		float time = distance / 200.0f;
+
+		MoveTo *moveAction = MoveTo::create(time, destination);
+		moveAction->setTag(0);
+		m_child->stopActionByTag(0);
+		m_child->runAction(moveAction);
+
+		m_childNavigation->SetCurrentPosition(roomNum);
+		m_childNavigation->DeletePrevPosition();
+
+		this->schedule(schedule_selector(GameScene::ChildMoving), time);
+	}
+	else
+	{
+		std::string eventName = "menu_popup-" + std::to_string(m_childNavigation->GetCurrentPosition());
+		Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(eventName, nullptr);
+
+		this->unschedule(schedule_selector(GameScene::ChildMoving));
+	}
 }
 
 void GameScene::RoomsLoad()
@@ -187,15 +236,9 @@ void GameScene::UpdateHappiness(float dt)
 	m_motherHappinessBar->setPercent((motherHappiness / maxHapiness) * 100.0f);
 }
 
-void GameScene::UpdateMotherAndChildPosition(float dt)
+void GameScene::UpdateMotherPosition(float dt)
 {
-	// Mother
 	int motherPosition = DataManager::getInstance()->GetMotherPosition();
 
 	m_mother->setPosition(m_roomPositions[motherPosition]);
-
-	// Child
-	int childPosition = DataManager::getInstance()->GetChildPosition();
-
-	m_child->setPosition(m_roomPositions[childPosition]);
 }

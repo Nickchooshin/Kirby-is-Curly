@@ -35,25 +35,16 @@ bool TitleScene::init()
 	this->addChild(background2);
 
 	// Buttons
-	ui::Button *startButton = ui::Button::create("./Images/dummy_start.png");
-	startButton->setPosition(Vec2(visibleSize.width / 2.0f, 240.0f));
+	ui::Button *startButton = ui::Button::create("./Images/Start_Button.png");
+	startButton->setPosition(Vec2(visibleSize.width / 2.0f, 200.0f));
 	startButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
 	startButton->setTag(0);
 	this->addChild(startButton);
 
-	ui::Button *loadButton = ui::Button::create("./Images/dummy_click.png");
-	loadButton->setPosition(Vec2(visibleSize.width / 2.0f, 160.0f));
-	loadButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
-	loadButton->setTag(1);
-	this->addChild(loadButton);
-
-	if (!UserDefault::getInstance()->getBoolForKey("save"))
-		loadButton->setEnabled(false);
-
-	ui::Button *exitButton = ui::Button::create("./Images/dummy_exit.png");
-	exitButton->setPosition(Vec2(visibleSize.width / 2.0f, 80.0f));
+	ui::Button *exitButton = ui::Button::create("./Images/Exit_Button.png");
+	exitButton->setPosition(Vec2(visibleSize.width / 2.0f, 120.0f));
 	exitButton->addClickEventListener(CC_CALLBACK_1(TitleScene::clickEvent, this));
-	exitButton->setTag(2);
+	exitButton->setTag(1);
 	this->addChild(exitButton);
 
 	// Keyboard
@@ -79,12 +70,6 @@ void TitleScene::clickEvent(Ref *pSender)
 		break;
 
 	case 1:
-		CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
-
-		Director::getInstance()->replaceScene(CCTransitionFade::create(3.0f, GameScene::createScene()));
-		break;
-
-	case 2:
 		Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

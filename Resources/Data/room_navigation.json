@@ -1,0 +1,34 @@
+[
+    {
+        "Room" : "Attic",
+        "Navigation" : [ 0, 0, 0, 1, 0, 0, 0, 0 ]
+    },
+    {
+        "Room" : "Kid Room",
+        "Navigation" : [ 0, 0, 1, 0, 0, 0, 0, 0 ]
+    },
+    {
+        "Room" : "Bathroom",
+        "Navigation" : [ 0, 1, 0, 1, 0, 0, 0, 0 ]
+    },
+    {
+        "Room" : "",
+        "Navigation" : [ 1, 0, 1, 0, 1, 1, 0, 0 ]
+    },
+    {
+        "Room" : "Parent's Room",
+        "Navigation" : [ 0, 0, 0, 1, 0, 0, 0, 0 ]
+    },
+    {
+        "Room" : "Living Room",
+        "Navigation" : [ 0, 0, 0, 1, 0, 0, 1, 0 ]
+    },
+    {
+        "Room" : "Kitchen",
+        "Navigation" : [ 0, 0, 0, 0, 0, 1, 0, 1 ]
+    },
+    {
+        "Room" : "Garden",
+        "Navigation" : [ 0, 0, 0, 0, 0, 0, 1, 0 ]
+    }
+]

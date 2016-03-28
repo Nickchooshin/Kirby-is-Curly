@@ -1,6 +1,0 @@
-[
-    { "dialog" : "Watch movie with mom", "image" : "./Images/screen2.jpg" },
-    { "dialog" : "movie sound", "sound" : "./Sounds/WAV/Watch_Movie.wav" },
-    { "dialog" : "Watch movie with mom2" },
-    { "dialog" : "Watch movie with mom3" }
-]

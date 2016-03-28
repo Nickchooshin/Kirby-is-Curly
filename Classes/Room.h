@@ -42,6 +42,8 @@ public:
 private:
 	void ClickRoom(cocos2d::Ref *pSender);
 	void ClickMenu(cocos2d::Ref *pSender);
+
+	void MenuPopup(cocos2d::EventCustom *eventCustom);
 };
 
 #endif

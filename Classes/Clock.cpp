@@ -1,5 +1,6 @@
 #include "Clock.h"
 #include "DataManager.h"
+#include "TItleScene.h"
 
 USING_NS_CC;
 
@@ -52,5 +53,24 @@ void Clock::UpdateTime(float dt)
 	if (time >= 20)
 	{
 		// Ending Scene
+
+		float childHapiness = DataManager::getInstance()->childHappiness;
+		float motherHapiness = DataManager::getInstance()->motherHappiness;
+
+		if (childHapiness >= 10.0f && motherHapiness >= 10.0f)
+		{
+			MessageBox("WOW! you complited the happy ending!", "Ending");
+		}
+		else if (childHapiness >= 5.0f && motherHapiness >= 5.0f)
+		{
+			MessageBox("WOW! you complited the normal ending!", "Ending");
+		}
+		//else if (childHapiness >= 1.0f && motherHapiness >= 1.0f)
+		else
+		{
+			MessageBox("WOW! you complited the bad ending!", "Ending");
+		}
+
+		Director::getInstance()->replaceScene(TitleScene::createScene());
 	}
 }

@@ -1,6 +1,6 @@
 [
-    { "dialog" : "message 1" },
-    { "dialog" : "message 2" },
+    { "dialog" : "message 1", "image" : "./Images/screen1.jpg" },
+    { "dialog" : "message 2", "sound" : "./Sounds/WAV/Eat_Snack.wav" },
     { "dialog" : "message 3" },
     { "dialog" : "message 4" }
 ]

@@ -1,6 +1,0 @@
-[
-    { "dialog" : "Look through old boxes for memories", "image" : "./Images/dummy_actionscene.png" },
-    { "dialog" : "effect", "sound" : "./Sounds/WAV/Look_Through_Old_Boxes_For_Memories.wav" },
-    { "dialog" : "Look through old boxes for memories2" },
-    { "dialog" : "Look through old boxes for memories3" }
-]

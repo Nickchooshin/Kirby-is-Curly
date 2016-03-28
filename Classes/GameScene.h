@@ -5,6 +5,8 @@
 #include "ui/CocosGUI.h"
 #include <vector>
 
+class Navigation;
+
 class GameScene : public cocos2d::Layer
 {
 private:
@@ -14,6 +16,7 @@ private:
 	std::vector<cocos2d::Vec2> m_roomPositions;
 	cocos2d::Sprite *m_mother;
 	cocos2d::Sprite *m_child;
+	Navigation *m_childNavigation;
 
 public:
 	GameScene();
@@ -28,7 +31,10 @@ public:
 private:
 	void RoomsLoad();
 	void UpdateHappiness(float dt);
-	void UpdateMotherAndChildPosition(float dt);
+	void UpdateMotherPosition(float dt);
+
+	void SetDestinationPosition(cocos2d::EventCustom *eventCustom);
+	void ChildMoving(float dt);
 };
 
 #endif
