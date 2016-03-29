@@ -35,6 +35,9 @@ private:
 
 	void SetDestinationPosition(cocos2d::EventCustom *eventCustom);
 	void ChildMoving(float dt);
+	
+	int GetChildAnimationType(cocos2d::Vec2 direction);
+	cocos2d::Action* CreateChildAnimationAction(int type);
 };
 
 #endif

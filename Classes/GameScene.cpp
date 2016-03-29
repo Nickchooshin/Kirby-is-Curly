@@ -116,19 +116,11 @@ bool GameScene::init()
 	m_child = Sprite::create("./Images/dummy_child.png");
 	this->addChild(m_child);
 
-	Animation *childAnimation = Animation::create();
-	childAnimation->setDelayPerUnit(0.25f);
-	childAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelkidfront/squirrelkidfront01.png");
-	childAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelkidfront/squirrelkidfront02.png");
-	childAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelkidfront/squirrelkidfront03.png");
-	childAnimation->addSpriteFrameWithFile("./Images/Squirrelgame/Squirrelkidfront/squirrelkidfront04.png");
-
-	Animate *childAnimate = Animate::create(childAnimation);
-	RepeatForever *childRepeat = RepeatForever::create(childAnimate);
+	Action *childAnimation = CreateChildAnimationAction(0);
 
 	m_child->setScale(0.5f);
 	//m_child->setAnchorPoint(Vec2(0.5f, 0.1187607573149742f));
-	m_child->runAction(childRepeat);
+	m_child->runAction(childAnimation);
 	m_child->setPosition(m_roomPositions[0]);
 
 	// Child Navigation;
@@ -166,13 +158,19 @@ void GameScene::ChildMoving(float dt)
 	{
 		int roomNum = m_childNavigation->GetNextPosition();
 		Vec2 destination = m_roomPositions[roomNum];
-		float distance = (m_child->getPosition() - destination).length();
+		Vec2 direction = destination - m_child->getPosition();
+		float distance = direction.length();
 		float time = distance / 200.0f;
 
 		MoveTo *moveAction = MoveTo::create(time, destination);
-		moveAction->setTag(0);
-		m_child->stopActionByTag(0);
+		moveAction->setTag(1);
+		m_child->stopActionByTag(1);
 		m_child->runAction(moveAction);
+
+		int animationType = GetChildAnimationType(direction);
+		Action *animationAction = CreateChildAnimationAction(animationType);
+		m_child->stopActionByTag(0);
+		m_child->runAction(animationAction);
 
 		m_childNavigation->SetCurrentPosition(roomNum);
 		m_childNavigation->DeletePrevPosition();
@@ -181,6 +179,10 @@ void GameScene::ChildMoving(float dt)
 	}
 	else
 	{
+		Action *animationAction = CreateChildAnimationAction(0);
+		m_child->stopActionByTag(0);
+		m_child->runAction(animationAction);
+
 		std::string eventName = "menu_popup-" + std::to_string(m_childNavigation->GetCurrentPosition());
 		Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(eventName, nullptr);
 
@@ -241,4 +243,63 @@ void GameScene::UpdateMotherPosition(float dt)
 	int motherPosition = DataManager::getInstance()->GetMotherPosition();
 
 	m_mother->setPosition(m_roomPositions[motherPosition]);
+}
+
+int GameScene::GetChildAnimationType(cocos2d::Vec2 direction)
+{
+	float forceX = abs(direction.x);
+	float forceY = abs(direction.y);
+
+	if (forceX >= forceY)
+	{
+		if (direction.x >= 0.0f)
+			return 2;
+		else
+			return 1;
+	}
+	else
+	{
+		if (direction.y >= 0.0f)
+			return 3;
+		else
+			return 0;
+	}
+}
+
+Action* GameScene::CreateChildAnimationAction(int type)
+{
+	Animation *childAnimation = Animation::create();
+	childAnimation->setDelayPerUnit(0.25f);
+
+	for (int i = 0; i < 4; i++)
+	{
+		char filename[256];
+
+		switch (type)
+		{
+		case 0:
+			sprintf(filename, "./Images/Squirrelgame/Squirrelkidfront/squirrelkidfront%02d.png", (i + 1));
+			break;
+
+		case 1:
+			sprintf(filename, "./Images/Squirrelgame/SquirrelKid Left Movement/squirrelkidleft%02d.png", (i + 1));
+			break;
+
+		case 2:
+			sprintf(filename, "./Images/Squirrelgame/SquirrelKid Right Movement/squirrelkidright%02d.png", (i + 1));
+			break;
+
+		case 3:
+			sprintf(filename, "./Images/Squirrelgame/squirrelkid back.png", (i + 1));
+			break;
+		}
+
+		childAnimation->addSpriteFrameWithFile(filename);
+	}
+
+	Animate *childAnimate = Animate::create(childAnimation);
+	RepeatForever *childRepeat = RepeatForever::create(childAnimate);
+	childRepeat->setTag(0);
+
+	return childRepeat;
 }
