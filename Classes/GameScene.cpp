@@ -65,6 +65,7 @@ bool GameScene::init()
 
 	Sprite *childHappinessIcon = Sprite::create("./Images/Icon_Child.png");
 	childHappinessIcon->setPosition(m_childHappinessBar->getPosition().x - (m_childHappinessBar->getContentSize().width / 2.0f) - childHappinessIcon->getContentSize().width / 2.0f, m_childHappinessBar->getPosition().y);
+	childHappinessIcon->setScale(0.7f);
 	this->addChild(childHappinessIcon);
 
 	// Mother HappinessBar
@@ -79,6 +80,7 @@ bool GameScene::init()
 
 	Sprite *motherHappinessIcon = Sprite::create("./Images/Icon_Mother.png");
 	motherHappinessIcon->setPosition(m_motherHappinessBar->getPosition().x - (m_motherHappinessBar->getContentSize().width / 2.0f) - motherHappinessIcon->getContentSize().width / 2.0f, m_motherHappinessBar->getPosition().y);
+	motherHappinessIcon->setScale(0.7f);
 	this->addChild(motherHappinessIcon);
 
 	// Clock

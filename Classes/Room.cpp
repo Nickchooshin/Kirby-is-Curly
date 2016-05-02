@@ -23,9 +23,11 @@ bool Room::init()
 {
 	ui::Button *button = ui::Button::create(m_spritePath);
 	button->addClickEventListener(CC_CALLBACK_1(Room::ClickRoom, this));
+	button->setTitleFontName("fonts/arial.ttf");
 	button->setTitleText(m_name);
 	button->setTitleFontSize(20.0f);
-	button->setTitleColor(Color3B(0, 0, 0));
+	button->setTitleColor(Color3B::WHITE);
+	button->getTitleRenderer()->enableOutline(Color4B::BLACK, 1);
 	this->addChild(button);
 
 	std::string eventName = "menu_popup-" + std::to_string(m_num);
